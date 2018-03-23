@@ -85,18 +85,24 @@
                                                 FloatingScale="{Binding Path=(wpf:HintAssist.FloatingScale), RelativeSource={RelativeSource TemplatedParent}}"
                                                 FloatingOffset="{Binding Path=(wpf:HintAssist.FloatingOffset), RelativeSource={RelativeSource TemplatedParent}}"                                               
                                                 />
-                                    <Button x:Name="PART_ClearButton" Height="Auto" Grid.Column="1" Padding="2,0,0,0" 
-                                            Style="{DynamicResource MaterialDesignToolButton}"
-                                            >
-                                        <Button.Visibility>
-                                            <MultiBinding Converter="{StaticResource ClearTextConverter}">
-                                                <Binding ElementName="Hint" Path="IsContentNullOrEmpty" Converter="{StaticResource NotConverter}"/>
-                                                <Binding Path="(wpf:TextFieldAssist.HasClearButton)" RelativeSource="{RelativeSource TemplatedParent}"/>
-                                            </MultiBinding>
-                                        </Button.Visibility>
-                                        <wpf:PackIcon Margin="0"
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1"  >
+                                        <TextBlock VerticalAlignment="Bottom"
+                                            FontSize="{TemplateBinding FontSize}"
+                                            Opacity="{Binding Path=(wpf:HintAssist.HintOpacity), RelativeSource={RelativeSource TemplatedParent}}"
+                                            Text="{Binding Path=(wpf:TextFieldAssist.SuffixText), RelativeSource={RelativeSource TemplatedParent}}"
+                                            />
+                                        <Button x:Name="PART_ClearButton" Height="Auto" Padding="2,0,0,0"
+                                            Style="{DynamicResource MaterialDesignToolButton}">
+                                            <Button.Visibility>
+                                                <MultiBinding Converter="{StaticResource ClearTextConverter}">
+                                                    <Binding ElementName="Hint" Path="IsContentNullOrEmpty" Converter="{StaticResource NotConverter}"/>
+                                                    <Binding Path="(wpf:TextFieldAssist.HasClearButton)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                </MultiBinding>
+                                            </Button.Visibility>
+                                            <wpf:PackIcon Margin="0"
                                                   Kind="CloseCircle" />
-                                    </Button>
+                                        </Button>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                             <Line x:Name="DashedLine" VerticalAlignment="Bottom" Visibility="Hidden"
@@ -104,6 +110,11 @@
                                   X1="0" X2="{Binding ActualWidth, ElementName=border}" Y1="0" Y2="0" 
                                   Stroke="{TemplateBinding BorderBrush}" Opacity="0.56" />
                             <wpf:Underline x:Name="Underline" Visibility="{Binding Path=(wpf:TextFieldAssist.DecorationVisibility), RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Canvas VerticalAlignment="Bottom">
+                                <TextBlock Canvas.Top="2" FontSize="10" MaxWidth="{Binding ActualWidth, ElementName=border}"
+                                           Opacity="{Binding Path=(wpf:HintAssist.HintOpacity), RelativeSource={RelativeSource TemplatedParent}}"
+                                           Text="{Binding Path=(wpf:HintAssist.HelperText), RelativeSource={RelativeSource TemplatedParent}}" />
+                            </Canvas>
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>

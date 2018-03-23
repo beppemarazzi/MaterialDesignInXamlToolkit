@@ -262,6 +262,8 @@ namespace MaterialDesignThemes.Wpf
                 {
                     (box as TextBox)?.SetCurrentValue(TextBox.TextProperty, null);
                     (box as ComboBox)?.SetCurrentValue(ComboBox.TextProperty, null);
+                    if (box is PasswordBox)
+                        (box as PasswordBox).Password = null;
                 };
                 if (bValue)
                     clearButton.Click += handler;
@@ -278,6 +280,22 @@ namespace MaterialDesignThemes.Wpf
         public static bool GetHasClearButton(DependencyObject element)
         {
             return (bool)element.GetValue(HasClearButtonProperty);
+        }
+
+        /// <summary>
+        /// SuffixText dependency property
+        /// </summary>
+        public static readonly DependencyProperty SuffixTextProperty = DependencyProperty.RegisterAttached(
+            "SuffixText", typeof(string), typeof(TextFieldAssist), new PropertyMetadata(default(string)));
+
+        public static void SetSuffixText(DependencyObject element, string value)
+        {
+            element.SetValue(SuffixTextProperty, value);
+        }
+
+        public static string GetSuffixText(DependencyObject element)
+        {
+            return (string)element.GetValue(SuffixTextProperty);
         }
 
         #region Methods
